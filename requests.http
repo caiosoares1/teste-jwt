@@ -1,0 +1,104 @@
+@token = {{login.response.body.token}}
+@host = http://localhost:3000
+
+### Create Food
+
+POST {{host}}/signin
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "email": "gabriel@gmail.com",
+    "senha": 4547
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Read Foods
+
+GET {{host}}/foods
+Authorization: bearer {{token}}
+
+### Update Food
+
+PUT {{host}}/foods/3
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "name": "Torta de Frango",
+    "price": 14,
+    "category_id": 3
+}
+
+### Delete Food
+
+DELETE {{host}}/foods/4
+Authorization: bearer {{token}}
+
+### Read Categories
+
+GET {{host}}/categories
+Authorization: bearer {{token}}
+
+### Create User
+
+POST {{host}}/signup
+Content-Type: application/json
+
+{
+    "name": "Luiz",
+    "email": "luiz@email.com",
+    "senha": "123"
+}
+
+### Valid Login
+
+# @name login
+POST {{host}}/signin
+Content-Type: application/json
+
+{
+    "email": "luiz@email.com",
+    "senha": "123"
+}
+
+### Invalid Login
+
+POST {{host}}/signin
+Content-Type: application/json
+
+{
+    "email": "fail@email.com",
+    "password": "123"
+}

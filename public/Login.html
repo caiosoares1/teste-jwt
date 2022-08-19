@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+  <title>Login</title>
+</head>
+
+<body>
+  <!--- <div class="topnav">
+    <a class="active" href="Generator.html">Home</a>
+  </div> --->
+
+  <div class="login">
+
+    <div name="passgenerate" class="container-1 containerstyle card">
+
+      <h2>Login</h2>
+
+      <form id="caracs">
+
+        <div class="card-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="card-group">
+          <label for="senha">Senha</label>
+          <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
+        </div>
+
+        <button type="submit" id="gerar" class="btn btn-primary" style="border-radius: 50px; width: 220px; margin: auto; margin-top: 53px">
+          Confirmar
+        </button>
+
+        <div class="references">
+
+          <a href="Cadastro.html">Criar uma nova conta</a>
+
+        </div>
+
+      </form>
+
+    </div>
+    
+    <div class="position-absolute top-0 end-0 p-3" style="z-index: 11">
+      
+      <div id="liveToast" class="toast bg-warning" role="alert" aria-live="assertive" aria-atomic="true">
+
+        <div class="toast-header">
+
+          <strong class="me-auto"></strong>
+
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>-->
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+    import Auth from './js/auth.js';
+
+    const form = document.querySelector('form');
+
+    function showToast(message) {
+      document.querySelector('.toast-header strong').innerText = message;
+      const toast = new bootstrap.Toast(document.querySelector('#liveToast'));
+      toast.show();
+    }
+
+    form.onsubmit = async (event) => {
+      event.preventDefault();
+
+      const user = Object.fromEntries(new FormData(form));
+
+      const url = '/signin';
+
+      const configRequest = {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      };
+
+      const { auth, token } = await (await fetch(url, configRequest)).json();
+
+      console.log(auth)
+      console.log(token)
+
+      if (auth) {
+        Auth.signin(token);
+      } else {
+        showToast('Erro no login');
+      }
+    }
+  </script>
+  
+</body>
+</html>
